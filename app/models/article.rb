@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Article < ApplicationRecord
-  has_many :users
+  belongs_to :user
 
   validates :title, presence: true
   validates :description, presence: true
