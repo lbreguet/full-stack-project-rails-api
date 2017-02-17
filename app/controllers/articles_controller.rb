@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-class ArticlesController < ApplicationController
-  before_action :set_article, only: [:show, :update, :destroy]
+class ArticlesController < OpenReadController
+  before_action :set_article, only: [:update, :destroy]
 
   # GET /articles
   def index
@@ -12,14 +12,12 @@ class ArticlesController < ApplicationController
 
   # GET /articles/1
   def show
-    puts @article
-
-    render json: @article
+    render json: Article.find(params[:id])
   end
 
   # POST /articles
   def create
-    @article = Article.new(article_params)
+    @article = current_user.articles.build(article_params)
 
     if @article.save
       render json: @article, status: :created
@@ -46,7 +44,7 @@ class ArticlesController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_article
-    @article = Article.find(params[:id])
+    @article = current_user.articles.find(params[:id])
   end
   private :set_article
   # Only allow a trusted parameter "white list" through.
