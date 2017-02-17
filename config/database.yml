@@ -1,4 +1,4 @@
-<% project_name = 'famille-breguet' %>
+<% project_name = 'createapedia' %>
 
 default: &default
   adapter: postgresql
