@@ -12,7 +12,9 @@ class ArticlesController < OpenReadController
 
   # GET /articles/1
   def show
-    render json: Article.find(params[:id])
+    @article = Article.find(params[:id])
+
+    render json: @article
   end
 
   # POST /articles
@@ -20,7 +22,7 @@ class ArticlesController < OpenReadController
     @article = current_user.articles.build(article_params)
 
     if @article.save
-      render json: @article, status: :created
+      render json: @article, status: :created, scope: current_user
     else
       render json: @article.errors, status: :unprocessable_entity
     end
